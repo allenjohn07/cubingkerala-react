@@ -11,6 +11,7 @@ import Rankings from './pages/Rankings'
 import CompetitionInfo from './pages/CompetitionInfo'
 import PersonInfo from './pages/PersonInfo'
 import Requests from './pages/Requests'
+import MyProfile from './pages/MyProfile'
 
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
           <Route path='/competitions/:compId' element={<CompetitionInfo />} />
           <Route path='/persons/:personId' element={<PersonInfo />} />
           <Route path='/admin/requests' element={<Requests />} />
+          <Route path='/profile/:id' element={<MyProfile />} />
         </Routes>
       </Router>
     </div>

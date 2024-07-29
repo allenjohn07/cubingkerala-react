@@ -77,11 +77,10 @@ const LoggedInNav = () => {
                                 <p className="font-normal">Signed in as</p>
                                 <p className="font-semibold"><span>{user?.name}</span></p>
                             </DropdownItem>
-                            <DropdownItem key="settings">My Profile</DropdownItem>
+                            <DropdownItem key="settings"><Link to={`/profile/${user?.wcaid}`}>My Profile</Link></DropdownItem>
                             {
                                 user?.userID === userId ? <DropdownItem onClick={handleRequestRedirect} key="requests">Member Requests</DropdownItem>  : null
                             }
-                            <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
                             <DropdownItem onClick={handleLogout} key="logout" color="danger">
                                 Log Out
                             </DropdownItem>
@@ -126,11 +125,10 @@ const LoggedInNav = () => {
                                 <p>Signed in as</p>
                                 <p className="font-semibold">{user?.name}</p>
                             </DropdownItem>
-                            <DropdownItem key="settings">My Profile</DropdownItem>
+                            <DropdownItem key="settings"><Link to={`/profile/${user?.wcaid}`}>My Profile</Link></DropdownItem>
                             {
                                 user?.userID === userId ? <DropdownItem onClick={handleRequestRedirect} key="requests">Member Requests</DropdownItem>  : null
                             }
-                            <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
                             <DropdownItem onClick={handleLogout} key="logout" color="danger">
                                 Log Out
                             </DropdownItem>

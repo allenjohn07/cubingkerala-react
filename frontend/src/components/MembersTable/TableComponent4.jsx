@@ -10,10 +10,12 @@ import {
   Button,
   Chip,
   User,
+  Tooltip,
 } from "@nextui-org/react";
 import { SearchIcon } from "./SearchIcon";
 import { columns, statusOptions } from "./data";
 import { instance } from "../../config/AxiosConfig.jsx";
+import { Link } from "react-router-dom";
 
 const statusColorMap = {
   Active: "success",
@@ -99,13 +101,15 @@ export default function TableComponent4() {
     switch (columnKey) {
       case "id":
         return (
-          <div>
-            <span className="text-sm">{user.wcaid}</span>
-          </div>
+          <Link to={`/persons/${user.wcaid}`}>
+            <div className="hover:text-blue-700">
+              <span className="text-sm">{user.wcaid}</span>
+            </div>
+          </Link>
         );
       case "name":
         return (
-          <User
+          <User className="cursor-default"
             avatarProps={{ radius: "lg", src: user.imageUrl }}
             description={user.username}
             name={cellValue}
@@ -115,21 +119,21 @@ export default function TableComponent4() {
         );
       case "role":
         return (
-          <div className="flex flex-col">
+          <div className="flex flex-col cursor-default">
             <p className="text-bold text-small capitalize">{cellValue}</p>
             <p className="text-bold text-tiny capitalize text-default-400">{user.event}</p>
           </div>
         );
       case "status":
         return (
-          <Chip className="capitalize border-none" color={statusColorMap[user.status]} size="sm" variant="dot">
+          <Chip className="capitalize border-none cursor-default" color={statusColorMap[user.status]} size="sm" variant="dot">
             {cellValue}
           </Chip>
         );
       case "event":
         return (
           <div>
-            <span className={`cubing-icon event-${user.mainevent} px-2 text-lg`}></span>
+            <Tooltip placement="right" radius="sm" content={user.mainevent}><span className={`cubing-icon event-${user.mainevent} px-2 text-lg cursor-pointer`}></span></Tooltip>
           </div>
         )
       default:
@@ -235,7 +239,7 @@ export default function TableComponent4() {
         <TableHeader columns={headerColumns}>
           {(column) => (
             <TableColumn
-              className="bg-black text-white"
+              className="bg-black"
               key={column.uid}
               align={column.uid === "actions" ? "center" : "start"}
               allowsSorting={column.sortable}

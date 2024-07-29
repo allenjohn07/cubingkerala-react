@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@nextui-org/react";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Tooltip } from "@nextui-org/react";
 
 const ProfileTable = ({ person }) => {
     const [single, setSingle] = useState([]);
@@ -51,7 +51,7 @@ const ProfileTable = ({ person }) => {
     }
 
     return (
-        <Table isStriped className='mt-10 text-gray-900' aria-label="Example static collection table">
+        <Table radius='sm' isStriped className='mt-10 text-gray-900' aria-label="Example static collection table">
             <TableHeader>
                 <TableColumn className='bg-black text-gray-100'>Event</TableColumn>
                 <TableColumn className='bg-black text-gray-100'>NR</TableColumn>
@@ -65,7 +65,7 @@ const ProfileTable = ({ person }) => {
                 {
                     mergedResult?.map((obj, index) => (
                         <TableRow key={index}>
-                            <TableCell><span className={`cubing-icon event-${obj.eventId} px-2 text-lg`}></span></TableCell>
+                            <TableCell><Tooltip radius='sm' placement='left' content={obj.eventId}><span className={`cubing-icon event-${obj.eventId} px-2 text-lg cursor-pointer`}></span></Tooltip></TableCell>
                             <TableCell className='text-gray-600'>{obj.singleRank.country}</TableCell>
                             <TableCell className='text-gray-600'>{obj.singleRank.world}</TableCell>
                             <TableCell className='font-semibold'>{obj.eventId === "333fm" ? (Math.ceil((convertMillisecondsToTime(obj.bestSingle)) * 100)) : obj.eventId === "333mbf" ? 'n/a' : convertMillisecondsToTime(obj.bestSingle)}</TableCell>
