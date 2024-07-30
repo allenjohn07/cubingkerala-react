@@ -20,10 +20,8 @@ export default function RequestTable() {
 
   console.log(requests);
 
-  // console.log(currentMember);
 
   const handleSave = async (member) => {
-    // console.log(member);
     try {
       const response = await instance.post("/request/editRequest", {member})
       console.log(response.data.message);
