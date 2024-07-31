@@ -51,28 +51,28 @@ const ProfileTable = ({ person }) => {
     }
 
     return (
-        <Table radius='sm' isStriped className='mt-10 text-gray-900' aria-label="Example static collection table">
+        <Table radius='sm' className='mt-10 text-gray-900' aria-label="Example static collection table">
             <TableHeader>
-                <TableColumn className='bg-black text-gray-100'>Event</TableColumn>
-                <TableColumn className='bg-black text-gray-100'>NR</TableColumn>
-                <TableColumn className='bg-black text-gray-100'>WR</TableColumn>
-                <TableColumn className='bg-black text-gray-100'>Best</TableColumn>
-                <TableColumn className='bg-black text-gray-100'>Average</TableColumn>
-                <TableColumn className='bg-black text-gray-100'>WR</TableColumn>
-                <TableColumn className='bg-black text-gray-100'>NR</TableColumn>
+                <TableColumn className='bg-black '>Event</TableColumn>
+                <TableColumn className='bg-black '>NR</TableColumn>
+                <TableColumn className='bg-black '>WR</TableColumn>
+                <TableColumn className='bg-black '>Best</TableColumn>
+                <TableColumn className='bg-black '>Average</TableColumn>
+                <TableColumn className='bg-black '>WR</TableColumn>
+                <TableColumn className='bg-black '>NR</TableColumn>
             </TableHeader>
             <TableBody>
                 {
                     mergedResult?.map((obj, index) => (
                         <TableRow key={index}>
-                            <TableCell><Tooltip radius='sm' placement='left' content={obj.eventId}><span className={`cubing-icon event-${obj.eventId} px-2 text-lg cursor-pointer`}></span></Tooltip></TableCell>
-                            <TableCell className='text-gray-600'>{obj.singleRank.country}</TableCell>
-                            <TableCell className='text-gray-600'>{obj.singleRank.world}</TableCell>
-                            <TableCell className='font-semibold'>{obj.eventId === "333fm" ? (Math.ceil((convertMillisecondsToTime(obj.bestSingle)) * 100)) : obj.eventId === "333mbf" ? 'n/a' : convertMillisecondsToTime(obj.bestSingle)}</TableCell>
-                            <TableCell className='font-semibold'>{obj.eventId === "333mbf" ? 'n/a' :
+                            <TableCell className='border-b-1 border-b-zinc-800'><Tooltip radius='sm' placement='left' content={obj.eventId}><span className={`cubing-icon event-${obj.eventId} px-2 text-success text-lg cursor-pointer`}></span></Tooltip></TableCell>
+                            <TableCell className='text-gray-300 border-b-1 border-b-zinc-800'>{obj.singleRank.country}</TableCell>
+                            <TableCell className='text-gray-300 border-b-1 border-b-zinc-800'>{obj.singleRank.world}</TableCell>
+                            <TableCell className='font-semibold border-b-1 border-b-zinc-800'>{obj.eventId === "333fm" ? (Math.ceil((convertMillisecondsToTime(obj.bestSingle)) * 100)) : obj.eventId === "333mbf" ? 'n/a' : convertMillisecondsToTime(obj.bestSingle)}</TableCell>
+                            <TableCell className='font-semibold border-b-1 border-b-zinc-800'>{obj.eventId === "333mbf" ? 'n/a' :
                                     convertMillisecondsToTime(obj.bestAverage)}</TableCell>
-                            <TableCell className='text-gray-600'>{obj.averageRank.world}</TableCell>
-                            <TableCell className='text-gray-600'>{obj.averageRank.country}</TableCell>
+                            <TableCell className='text-gray-300 border-b-1 border-b-zinc-800'>{obj.averageRank.world}</TableCell>
+                            <TableCell className='text-gray-300 border-b-1 border-b-zinc-800'>{obj.averageRank.country}</TableCell>
                         </TableRow>
                     ))
                 }

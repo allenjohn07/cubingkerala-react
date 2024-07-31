@@ -120,6 +120,9 @@ import { useCookies } from 'react-cookie';
 import { instance } from '../config/AxiosConfig';
 import { useSnackbar } from 'notistack';
 import { Button } from '@nextui-org/react';
+import { MdOutlineArrowBackIosNew } from "react-icons/md";
+
+
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -165,36 +168,37 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col justify-between items-center min-h-screen bg-gradient-to-tr from-black to-gray-800">
-      <Link to={'/'}>
+    <div className="flex flex-col justify-between items-center min-h-screen bg-black">
+      {/* <Link to={'/'}>
         <div className="absolute left-5 top-5 flex items-center gap-1">
           <img width={30} src={logo} alt="ck-logo" />
           <h1 className="text-2xl font-label font-bold text-white">Cubing Kerala</h1>
         </div>
-      </Link>
+      </Link> */}
       <Link to={'/'}>
-        <span className="absolute text-white right-5 top-5 text-md font-semibold underline">
-          Go back
+        <span className="absolute flex items-center gap-2 text-white left-5 top-5 lg:left-20 lg:top-10 text-md">
+          <MdOutlineArrowBackIosNew/>
+          Back
         </span>
       </Link>
       <div className="w-11/12 max-w-md px-8 py-10 rounded-3xl mt-10">
-        <h1 className="text-2xl font-semibold text-gray-100 text-center">Welcome back!</h1>
+        <h1 className="text-xl lg:text-2xl font-semibold text-gray-100 text-center">Welcome back</h1>
         <p className="text-center text-gray-600 mt-2">Please enter your details.</p>
         <div className="mt-8">
-          <div className="flex flex-col mb-4">
-            <label className="text-sm text-gray-600 font-medium mb-2">WCA ID</label>
+          <div className="flex flex-col mb-5">
+            {/* <label className="text-sm text-gray-600 font-medium mb-2">WCA ID</label> */}
             <input
-              className="w-full border-2 border-gray-200 rounded-lg p-3 bg-gray-50 placeholder-gray-400"
+              className="w-full border-1 border-stone-800 rounded-lg p-2 bg-transparent text-white placeholder:text-sm placeholder-gray-400"
               placeholder="World Cube Association ID"
               value={login.wcaid}
               onChange={(e) => setLogin({ ...login, wcaid: e.target.value })}
             />
           </div>
           <div className="flex flex-col mb-6">
-            <label className="text-sm text-gray-600 font-medium mb-2">Password</label>
+            {/* <label className="text-sm text-gray-600 font-medium mb-2">Password</label> */}
             <div className="relative w-full">
               <input
-                className="w-full border-2 border-gray-200 rounded-lg p-3 bg-gray-50 placeholder-gray-400"
+                className="w-full border-1 border-stone-800 rounded-lg p-2 text-white bg-transparent placeholder:text-sm placeholder-gray-400"
                 placeholder="Enter your password"
                 type={showPassword ? 'text' : 'password'}
                 value={login.password}
@@ -204,23 +208,23 @@ const Login = () => {
                 className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
                 onClick={togglePasswordVisibility}
               >
-                {showPassword ? <AiFillEyeInvisible size={20} /> : <AiFillEye size={20} />}
+                {showPassword ? <AiFillEyeInvisible className='text-white' size={20} /> : <AiFillEye className='text-white' size={20} />}
               </div>
             </div>
           </div>
           <div className='text-center'>
             <Button
               onClick={handleLogin}
-              className="w-full hover:shadow-md text-base font-semibold text-white bg-black rounded-lg"
+              className="w-full hover:shadow-md text-base text-success bg-zinc-800 font-semibold rounded-lg"
             >
               Login
             </Button>
           </div>
           <div className="mt-6 text-center">
-            <p className="text-gray-600">Don't have an account?</p>
-            <Link to={'/register'}>
+            <Link to={"/register"}><p className="text-gray-500 hover:underline cursor-pointer text-sm">Don't have an account? Sign up</p></Link>
+            {/* <Link to={'/register'}>
               <button className="text-blue-800 font-semibold underline">Sign up</button>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

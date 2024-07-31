@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Table,
   TableHeader,
@@ -14,7 +14,6 @@ import {
 } from "@nextui-org/react";
 import { SearchIcon } from "./SearchIcon";
 import { columns, statusOptions } from "./data";
-import { instance } from "../../config/AxiosConfig.jsx";
 import { Link } from "react-router-dom";
 
 const statusColorMap = {
@@ -24,7 +23,7 @@ const statusColorMap = {
 
 const INITIAL_VISIBLE_COLUMNS = ["name", "role", "status", "event", "id"];
 
-export default function TableComponent4() {
+export default function TableComponent4({ members }) {
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
   const [visibleColumns, setVisibleColumns] = React.useState(new Set(INITIAL_VISIBLE_COLUMNS));
@@ -35,21 +34,8 @@ export default function TableComponent4() {
     direction: "ascending",
   });
   const [page, setPage] = React.useState(1);
-  const [members, setMembers] = useState([])
 
   const hasSearchFilter = Boolean(filterValue);
-
-  useEffect(() => {
-    try {
-      const fetchMembers = async () => {
-        const response = await instance.get("/members/getMembers")
-        setMembers(response.data.members);
-      }
-      fetchMembers()
-    } catch (error) {
-      console.log(error);
-    }
-  }, [])
 
   console.log(members);
 
@@ -102,7 +88,7 @@ export default function TableComponent4() {
       case "id":
         return (
           <Link to={`/persons/${user.wcaid}`}>
-            <div className="hover:text-blue-700">
+            <div className="hover:text-blue-500">
               <span className="text-sm">{user.wcaid}</span>
             </div>
           </Link>
@@ -126,7 +112,7 @@ export default function TableComponent4() {
         );
       case "status":
         return (
-          <Chip className="capitalize border-none cursor-default" color={statusColorMap[user.status]} size="sm" variant="dot">
+          <Chip className="capitalize border-none text-gray-200 cursor-default" color={statusColorMap[user.status]} size="sm" variant="dot">
             {cellValue}
           </Chip>
         );
@@ -222,13 +208,12 @@ export default function TableComponent4() {
       <Table
         radius="sm"
         isCompact
-        isStriped
         aria-label="Example table with custom cells, pagination and sorting"
         isHeaderSticky
         bottomContent={bottomContent}
         bottomContentPlacement="outside"
         classNames={{
-          wrapper: "max-h-[382px] text-gray-900",
+          wrapper: "max-h-[382px] text-gray-200 bg-zinc-900",
         }}
         sortDescriptor={sortDescriptor}
         topContent={topContent}
@@ -250,7 +235,7 @@ export default function TableComponent4() {
         </TableHeader>
         <TableBody emptyContent={"No users found"} items={sortedItems}>
           {(item) => (
-            <TableRow key={item.wcaid}>
+            <TableRow className="border-b-1 border-b-zinc-800" key={item.wcaid}>
               {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
             </TableRow>
           )}

@@ -1,14 +1,14 @@
 import React from 'react'
 import { Footer } from 'flowbite-react'
+import { FaGithub } from "react-icons/fa";
+
 
 const DownFooter = () => {
   return (
-    <div className='flex-row lg:flex w-full justify-between p-5'>
+    <div className='flex w-full justify-between px-5 lg:px-10 py-5'>
           <Footer.Copyright href="/" by="Cubing Kerala" year={new Date().getFullYear()} />
           <Footer.LinkGroup>
-            <Footer.Link href="/about">About</Footer.Link>
-            <Footer.Link href="/privacy">Privacy Policy</Footer.Link>
-            <Footer.Link href="/contact">Contact</Footer.Link>
+            <Footer.Link href="https://github.com/allenjohn07/cubingkerala"><div className='flex items-center gap-1'><FaGithub/>Github</div></Footer.Link>
           </Footer.LinkGroup>
         </div>
   )
