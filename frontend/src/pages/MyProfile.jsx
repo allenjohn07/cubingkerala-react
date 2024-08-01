@@ -9,6 +9,7 @@ import { Badge } from 'flowbite-react'
 import { FaEdit } from "react-icons/fa";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Input, Select, SelectItem } from "@nextui-org/react";
 import { Progress } from "@nextui-org/react";
+import { useSnackbar } from 'notistack';
 
 
 const MyProfile = () => {
@@ -26,7 +27,7 @@ const MyProfile = () => {
         status: ''
     })
     const [isLoading, setIsLoading] = useState(true);
-
+    const { enqueueSnackbar } = useSnackbar()
 
     const navigate = useNavigate()
 
@@ -87,16 +88,18 @@ const MyProfile = () => {
         try {
             const response = await instance.post("/members/updateMember", { form })
             if (response.data.status === 200) {
-                console.log(response.data.message);
-                window.location.reload()
+                enqueueSnackbar(response.data.message, { variant: 'success' });
+                setTimeout(() => {
+                    window.location.reload()
+                }, 500);
                 return
             }
-            console.log(response.data.message);
+            enqueueSnackbar(response.data.message, { variant: 'error' });
         } catch (error) {
             console.log(error);
+            enqueueSnackbar(error, { variant: 'error' });
         }
     }
-
 
     const handleRedirectToMembers = () => {
         navigate("/members")

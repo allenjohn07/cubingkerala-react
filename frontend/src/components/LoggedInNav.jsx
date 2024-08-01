@@ -95,7 +95,9 @@ const LoggedInNav = () => {
                                     <p>Signed in as</p>
                                     <p className="font-semibold text-success">{user?.name}</p>
                                 </DropdownItem>
-                                <DropdownItem onClick={() => handleProfileRedirect(user?.wcaid)} key="settings">My Profile</DropdownItem>
+                                {
+                                    user?.userID === userId ? null : <DropdownItem onClick={() => handleProfileRedirect(user?.wcaid)} key="settings">My Profile</DropdownItem>
+                                }
                                 {
                                     user?.userID === userId ? <DropdownItem onClick={() => handleRequestRedirect()} key="requests">Member Requests</DropdownItem> : null
                                 }
@@ -125,7 +127,9 @@ const LoggedInNav = () => {
                                     <p>Signed in as</p>
                                     <p className="font-semibold text-success">{user?.name}</p>
                                 </DropdownItem>
-                                <DropdownItem key="settings"><Link to={`/profile/${user?.wcaid}`}>My Profile</Link></DropdownItem>
+                                {
+                                    user?.userID === userId ? null : <DropdownItem onClick={() => handleProfileRedirect(user?.wcaid)} key="settings">My Profile</DropdownItem>
+                                }
                                 {
                                     user?.userID === userId ? <DropdownItem onClick={handleRequestRedirect} key="requests">Member Requests</DropdownItem> : null
                                 }

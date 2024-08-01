@@ -1,35 +1,51 @@
 import React, { useEffect, useState } from "react";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Select, SelectItem, Button } from "@nextui-org/react";
 import { instance } from '../../config/AxiosConfig.jsx';
+import { useSnackbar } from 'notistack';
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
 
-export default function RequestTable() {
-  const [requests, setRequests] = useState([]);
+
+export default function RequestTable({ requests }) {
+
   const [selection, setSelection] = useState(null)
-
-  useEffect(() => {
-    try {
-      const fetchRequests = async () => {
-        const response = await instance.get("/request/getRequests");
-        setRequests(response.data.requests);
-      };
-      fetchRequests();
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
-
-  console.log(requests);
-
+  const { enqueueSnackbar } = useSnackbar()
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const handleSave = async (member) => {
     try {
-      const response = await instance.post("/request/editRequest", {member})
-      console.log(response.data.message);
+      const response = await instance.post("/request/editRequest", { member })
+      if (response.data.status === 200) {
+        enqueueSnackbar(response.data.message, { variant: 'success' });
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
+      }
+      enqueueSnackbar(response.data.message, { variant: 'error' });
     } catch (error) {
       console.log(error);
+      enqueueSnackbar(error, { variant: 'error' });
     }
   }
-  
+
+
+  const handleDelete = async (member) => {
+    console.log(member);
+    try {
+      const deleteResponse = await instance.post("/members/deleteMember", { member })
+      if (deleteResponse.data.status === 200) {
+        enqueueSnackbar(deleteResponse.data.message, { variant: 'success' });
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
+        return
+      }
+      enqueueSnackbar(deleteResponse.data.message, { variant: 'error' });
+    } catch (error) {
+      console.log(error);
+      enqueueSnackbar(error, { variant: 'error' });
+    }
+  }
+
   return (
     <Table isCompact radius="sm" className="text-black w-full lg:w-2/3" aria-label="Example static collection table">
       <TableHeader>
@@ -43,46 +59,66 @@ export default function RequestTable() {
       <TableBody>
         {requests?.map((member, index) => (
           <TableRow key={index}>
-            <TableCell width="20px">{index + 1}</TableCell>
-            <TableCell width="50px">{member.wcaid}</TableCell>
-            <TableCell className="min-w-[150px]" width="150px">{member.name}</TableCell>
-            <TableCell width="200px">
-              <Select
+            <TableCell className="border-b-1 border-b-zinc-700" width="20px">{index + 1}</TableCell>
+            <TableCell className="border-b-1 border-b-zinc-700" width="50px">{member.wcaid}</TableCell>
+            <TableCell className="min-w-[170px] border-b-1 border-b-zinc-700" width="150px">{member.name}</TableCell>
+            <TableCell className="border-b-1 border-b-zinc-700" width="200px">
+              <Select aria-label="role"
                 radius="sm"
-                className="flex items-center min-w-[170px]"
-                labelPlacement="outside-left"
+                className="min-w-[170px]"
                 size="xs"
-                label="Role"
                 defaultSelectedKeys={[`${member?.role}`]}
                 value={member?.role}
                 variant="bordered"
-                onChange={(e) => selection? setSelection({...selection, role: e.target.value}) : setSelection({...member, role: e.target.value})}
+                onChange={(e) => selection ? setSelection({ ...selection, role: e.target.value }) : setSelection({ ...member, role: e.target.value })}
               >
                 <SelectItem key="Member" value="Member">Member</SelectItem>
                 <SelectItem key="Organiser" value="Organiser">Organiser</SelectItem>
                 <SelectItem key="Co-founder" value="Co-founder">Co-founder</SelectItem>
               </Select>
             </TableCell>
-            <TableCell width="200px">
-              <Select
+            <TableCell className="border-b-1 border-b-zinc-700" width="200px">
+              <Select aria-label="status"
                 radius="sm"
-                className="flex items-center min-w-[150px]"
-                labelPlacement="outside-left"
+                className="flex items-center min-w-[130px]"
                 size="xs"
-                label="Status"
                 variant="bordered"
                 defaultSelectedKeys={[`${member?.status}`]}
-                onChange={(e) => selection? setSelection({...selection, status: e.target.value}) : setSelection({...member, status: e.target.value})}
+                onChange={(e) => selection ? setSelection({ ...selection, status: e.target.value }) : setSelection({ ...member, status: e.target.value })}
                 value={member?.status}
               >
                 <SelectItem key="Active" value="Active">Active</SelectItem>
                 <SelectItem key="Inactive" value="Inactive">Inactive</SelectItem>
               </Select>
             </TableCell>
-            <TableCell width="50px">
+            <TableCell className="border-b-1 border-b-zinc-700" width="50px">
               <div className="flex justify-evenly gap-2 lg:gap-0">
-                <Button onClick={() => handleSave({...member, role: selection?.role, status: selection?.status})} className="bg-green-900 text-white" size="sm">Save</Button>
-                <Button className="bg-red-900 text-white" size="sm">Delete</Button>
+                <Button onClick={() => handleSave({ ...member, role: selection?.role, status: selection?.status })} className="bg-success-700 text-white" size="sm">Save</Button>
+                <Button onPress={onOpen} className="bg-red-900 text-white" size="sm">Delete</Button>
+                <Modal
+                  className='rounded-md bg-gray-200'
+                  isOpen={isOpen}
+                  placement="top-bottom"
+                  onOpenChange={onOpenChange}
+                >
+                  <ModalContent>
+                    {(onClose) => (
+                      <>
+                        <ModalHeader className="flex flex-col gap-1">Are you sure?</ModalHeader>
+                        <ModalFooter>
+                          <div className="flex w-full gap-3">
+                            <Button className="bg-success-700 text-white w-1/2" color="success" onPress={onClose}>
+                              Close
+                            </Button>
+                            <Button onClick={() => handleDelete(member)} className="bg-red-800 w-1/2 text-white" onPress={onClose}>
+                              Delete
+                            </Button>
+                          </div>
+                        </ModalFooter>
+                      </>
+                    )}
+                  </ModalContent>
+                </Modal>
               </div>
             </TableCell>
           </TableRow>

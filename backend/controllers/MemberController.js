@@ -1,4 +1,5 @@
 import { MemberModel } from "../models/members.js";
+import { MemberRequests } from "../models/requests.js";
 
 export const GetMembers = async (req, res) => {
   try {
@@ -69,6 +70,24 @@ export const updateMember = async (req, res) => {
     );
     return res.json({
       message: "Member updated successfully",
+      status: 200,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: "Server error",
+      status: 500,
+    });
+  }
+};
+
+export const deleteMember = async (req, res) => {
+  const { member } = req.body;
+  try {
+    await MemberRequests.deleteOne({ wcaid: member.wcaid });
+    await MemberModel.deleteOne({ wcaid: member.wcaid });
+    return res.json({
+      message: "Deleted successfully",
       status: 200
     })
   } catch (error) {
