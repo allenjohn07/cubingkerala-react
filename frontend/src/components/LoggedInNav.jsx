@@ -37,6 +37,10 @@ const LoggedInNav = () => {
         navigate("/admin/requests");
     };
 
+    const handleProfileRedirect = (wcaid) => {
+        navigate(`/profile/${wcaid}`)
+    }
+
     return (
         <nav className="text-gray-100 py-7 px-5 lg:px-10">
             <div className="container mx-auto flex items-center justify-between">
@@ -82,26 +86,26 @@ const LoggedInNav = () => {
                             <DropdownTrigger>
                                 <Avatar
                                     as="button"
-                                    className="transition-transform h-8 w-8 hover:scale-105"
+                                    className="transition-transform h-5 w-5 lg:h-7 lg:w-7 hover:scale-105"
                                     color="black"
                                 />
                             </DropdownTrigger>
                             <DropdownMenu aria-label="Profile Actions" variant="flat">
                                 <DropdownItem key="profile" className="h-14 gap-2">
                                     <p>Signed in as</p>
-                                    <p className="font-semibold">{user?.name}</p>
+                                    <p className="font-semibold text-success">{user?.name}</p>
                                 </DropdownItem>
-                                <DropdownItem key="settings"><Link to={`/profile/${user?.wcaid}`}>My Profile</Link></DropdownItem>
+                                <DropdownItem onClick={() => handleProfileRedirect(user?.wcaid)} key="settings">My Profile</DropdownItem>
                                 {
-                                    user?.userID === userId ? <DropdownItem onClick={handleRequestRedirect} key="requests">Member Requests</DropdownItem> : null
+                                    user?.userID === userId ? <DropdownItem onClick={() => handleRequestRedirect()} key="requests">Member Requests</DropdownItem> : null
                                 }
-                                <DropdownItem onClick={handleLogout} key="logout" color="danger"></DropdownItem>
-                                    Log Out
-                                </DropdownMenu>
-                        </Dropdown> : <div>
-                            <Link to={"/login"}><Button className='bg-transparent text-white'>Login</Button></Link>
+                                <DropdownItem onClick={handleLogout} key="logout" color="danger">Log Out</DropdownItem>           
+                            </DropdownMenu>
+                        </Dropdown> :
+                            <div>
+                                <Link to={"/login"}><Button className='bg-transparent text-white'>Login</Button></Link>
 
-                        </div>
+                            </div>
                     }
                 </div>
 
@@ -112,14 +116,14 @@ const LoggedInNav = () => {
                             <DropdownTrigger>
                                 <Avatar
                                     as="button"
-                                    className="transition-transform h-8 w-8 hover:scale-105"
+                                    className="transition-transform h-6 w-6 lg:h-7 lg:w-7 hover:scale-105"
                                     color="black"
                                 />
                             </DropdownTrigger>
                             <DropdownMenu aria-label="Profile Actions" variant="flat">
                                 <DropdownItem key="profile" className="h-14 gap-2">
                                     <p>Signed in as</p>
-                                    <p className="font-semibold">{user?.name}</p>
+                                    <p className="font-semibold text-success">{user?.name}</p>
                                 </DropdownItem>
                                 <DropdownItem key="settings"><Link to={`/profile/${user?.wcaid}`}>My Profile</Link></DropdownItem>
                                 {

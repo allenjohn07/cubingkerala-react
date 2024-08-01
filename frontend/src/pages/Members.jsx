@@ -48,7 +48,7 @@ const Members = () => {
                 <TableComponent4 members={members} />
               </div>
             </div>
-            <div className='w-full pb-10'>
+            <div id='joinCubingKerala' className='w-full py-10'>
               <CreateMemberModal />
             </div>
           </div>

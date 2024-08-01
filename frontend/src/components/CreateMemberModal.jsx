@@ -3,7 +3,7 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDi
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import { instance } from '../config/AxiosConfig.jsx';
-
+import { useNavigate } from 'react-router-dom';
 
 
 const CreateMemberModal = () => {
@@ -20,6 +20,7 @@ const CreateMemberModal = () => {
         status: ''
     })
     const { enqueueSnackbar } = useSnackbar()
+    const navigate = useNavigate()
 
 
     useEffect(() => {
@@ -68,14 +69,19 @@ const CreateMemberModal = () => {
         }
     }
 
+
+    const handleRedirectToLogin = () => {
+        navigate("/login")
+    }
+
     return (
         <>
             <div className='flex items-center flex-col gap-1'>
                 <p className='text-sm text-gray-500'>be part of our community?</p>
-                <Button className="bg-transparent text-white shadow-lg" onPress={onOpen}>Join Cubing Kerala</Button>
+                <Button className="bg-transparent border-b-1 border-b-success rounded-none text-white shadow-lg" onPress={onOpen}>Join Cubing Kerala</Button>
             </div>
             <Modal
-                className='rounded-md'
+                className='rounded-md bg-gray-200'
                 isOpen={isOpen}
                 onOpenChange={onOpenChange}
                 placement="top-bottom"
@@ -83,52 +89,65 @@ const CreateMemberModal = () => {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col gap-1">Enter the details below.</ModalHeader>
+                            {
+                                user ? <ModalHeader className="flex flex-col gap-1">Enter the details below.</ModalHeader> : <ModalHeader className="flex flex-col gap-1">Log In to Continue</ModalHeader>
+                            }
                             <ModalBody>
-                                <div className='flex gap-3'>
-                                    <Input
-                                        disabled
-                                        value={user?.wcaid}
-                                        label="wca id"
-                                        variant="underlined"
-                                    />
-                                    <Select
-                                        autoFocus
-                                        onChange={(e) => setForm({ ...form, mainevent: e.target.value })}
-                                        value={form?.mainevent}
-                                        variant="underlined"
-                                        label="main event"
-                                        className="max-w-xs"
-                                    >
-                                        {
-                                            person?.rank.singles.map((event) =>
-                                                <SelectItem key={event.eventId}>
-                                                    {event.eventId}
-                                                </SelectItem>)
-                                        }
-                                    </Select>
-                                </div>
-                                <Input
-                                    description="example: allenjohn@cubingkerala"
-                                    onChange={(e) => setForm({ ...form, username: e.target.value })}
-                                    value={form?.username}
-                                    label="username"
-                                    variant="underlined"
-                                />
-                                <Input
-                                    onChange={(e) => setForm({ ...form, imageUrl: e.target.value })}
-                                    value={form?.imageUrl}
-                                    label="avatar url"
-                                    variant="underlined"
-                                />
+                                {
+                                    user ? <>
+                                        <div className='flex gap-3'>
+                                            <Input
+                                                disabled
+                                                value={user?.wcaid}
+                                                label="wca id"
+                                                variant="underlined"
+                                            />
+                                            <Select
+                                                autoFocus
+                                                onChange={(e) => setForm({ ...form, mainevent: e.target.value })}
+                                                value={form?.mainevent}
+                                                variant="underlined"
+                                                label="main event"
+                                                className="max-w-xs"
+                                            >
+                                                {
+                                                    person?.rank.singles.map((event) =>
+                                                        <SelectItem key={event.eventId}>
+                                                            {event.eventId}
+                                                        </SelectItem>)
+                                                }
+                                            </Select>
+                                        </div>
+                                        <Input
+                                            description="example: allenjohn@cubingkerala"
+                                            onChange={(e) => setForm({ ...form, username: e.target.value })}
+                                            value={form?.username}
+                                            label="username"
+                                            variant="underlined"
+                                        />
+                                        <Input
+                                            onChange={(e) => setForm({ ...form, imageUrl: e.target.value })}
+                                            value={form?.imageUrl}
+                                            label="avatar url"
+                                            variant="underlined"
+                                        />
+                                    </> : <div>You need to log in to access this feature.</div>
+                                }
                             </ModalBody>
                             <ModalFooter className='flex flex-col'>
                                 <div className='flex items-center justify-center w-full'>
-                                    <Button onClick={handleSubmit} className="bg-black text-white shadow-lg w-full rounded-md" onPress={onClose}>
-                                        Submit
-                                    </Button>
+                                    {
+                                        user ? <Button onClick={handleSubmit} className="shadow-lg w-full text-success font-semibold bg-black rounded-md" onPress={onClose}>
+                                            Submit
+                                        </Button> : 
+                                        <Button onClick={handleRedirectToLogin} className="text-success bg-black font-semibold shadow-lg w-full rounded-md" onPress={onClose}>
+                                            Login
+                                        </Button>
+                                    }
                                 </div>
-                                <div className='flex items-center justify-center w-full'><p className='text-xs'>Cubing Kerala membership is subject to manual approval.</p></div>
+                                {
+                                    user ? <div className='flex items-center justify-center w-full'><p className='text-xs'>Cubing Kerala membership is subject to manual approval.</p></div> : null
+                                }
                             </ModalFooter>
                         </>
                     )}

@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
-import InsideHome from './pages/InsideHome'
 import { useCookies } from 'react-cookie'
 import Competitions from './pages/Competitions'
 import Members from './pages/Members'
@@ -13,14 +12,13 @@ import PersonInfo from './pages/PersonInfo'
 import Requests from './pages/Requests'
 import MyProfile from './pages/MyProfile'
 
-
 const App = () => {
   const [cookies, setCookies] = useCookies(["access_token"])
   return (
     <div>
       <Router>
         <Routes>
-          <Route path='/' element={cookies.access_token ? <InsideHome /> : <Home />} />
+          <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<SignUp />} />
           <Route path='/competitions' element={<Competitions />} />
