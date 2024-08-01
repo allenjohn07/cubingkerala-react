@@ -177,24 +177,17 @@ const SignUp = () => {
 
   return (
     <div className="flex flex-col justify-between items-center min-h-screen bg-black">
-      {/* <Link to={'/'}>
-        <div className="absolute left-5 top-5 flex items-center gap-1">
-          <img width={30} src={logo} alt="ck-logo" />
-          <h1 className="text-2xl font-label font-bold text-white">Cubing Kerala</h1>
-        </div>
-      </Link> */}
       <Link to={'/'}>
         <span className="absolute flex items-center gap-2 text-white left-5 top-5 lg:left-20 lg:top-10 text-md">
           <MdOutlineArrowBackIosNew />
           Back
         </span>
       </Link>
-      <div className="w-11/12 max-w-md px-8 py-10 rounded-3xl mt-20">
+      <div className="w-11/12 max-w-md px-8 py-10 rounded-3xl mt-20 animate-fadeIn">
         <h1 className="text-xl lg:text-2xl font-semibold text-gray-100 text-center">Welcome to Cubing Kerala</h1>
         <p className="text-center text-gray-600 mt-2">Sign up for an account</p>
         <div className="mt-8">
           <div className="flex flex-col mb-4">
-            {/* <label className="text-sm text-gray-600 font-medium mb-2">Name</label> */}
             <input
               className="w-full border-1 border-stone-800 rounded-lg p-2 bg-transparent text-white placeholder:text-sm placeholder-gray-400"
               placeholder="Enter your name"
@@ -203,7 +196,6 @@ const SignUp = () => {
             />
           </div>
           <div className="flex flex-col mb-4">
-            {/* <label className="text-sm text-gray-600 font-medium mb-2">WCA ID</label> */}
             <input
               className="w-full border-1 border-stone-800 rounded-lg p-2 bg-transparent text-white placeholder:text-sm placeholder-gray-400"
               placeholder="World Cube Association ID"
@@ -212,7 +204,6 @@ const SignUp = () => {
             />
           </div>
           <div className="flex flex-col mb-6">
-            {/* <label className="text-sm text-gray-600 font-medium mb-2">Password</label> */}
             <div className="relative w-full">
               <input
                 className="w-full border-1 border-stone-800 rounded-lg p-2 bg-transparent text-white placeholder:text-sm placeholder-gray-400"
@@ -239,10 +230,6 @@ const SignUp = () => {
           </div>
           <div className="mt-6 text-center">
             <Link to={"/login"}><p className="text-gray-500 hover:underline cursor-pointer text-sm">Already have an account? Login</p></Link>
-
-            {/* <Link to={'/login'}>
-              <button className="text-blue-800 font-semibold underline">Login</button>
-            </Link> */}
           </div>
         </div>
       </div>

@@ -75,7 +75,7 @@ const Competitions = () => {
               className="max-w-full"
             />
           ) : (
-            <div className="p-8">
+            <div className="px-8 py-0 lg:py-8 animate-fadeIn">
               <h1 className="text-3xl font-bold mb-8 text-center">Competitions</h1>
               <div className="mb-12">
                 <h2 className="text-2xl font-semibold mb-4">Upcoming Competitions</h2>

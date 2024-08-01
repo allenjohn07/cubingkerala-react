@@ -148,10 +148,10 @@ const PersonInfo = () => {
                         className="max-w-full flex-grow"
                     />
             ) : (
-                <div className="flex-grow p-8">
+                <div className="flex-grow px-8 py-0 lg:py-8 animate-fadeIn">
                     <div className='flex flex-col items-center justify-center'>
                         <div className="flex items-center flex-col gap-2 pb-7">
-                            <h1 className='text-3xl font-bold'>{person?.name}</h1>
+                            <h1 className='text-xl lg:text-3xl font-bold'>{person?.name}</h1>
                             {member ? (
                                 <Badge color={member?.role === "Co-founder" ? "failure" : member?.role === "Organiser" ? "warning" : "success"}>
                                     Cubing Kerala {member?.role}

@@ -271,7 +271,7 @@ const Rankings = () => {
               className="max-w-full flex-grow"
             />
         ) : (
-          <div className="p-8 flex flex-col items-center">
+          <div className="px-8 py-0 lg:py-8 flex flex-col items-center animate-fadeIn">
             <h1 className="text-3xl font-bold mb-8 text-center">Rankings</h1>
             <div className='w-full lg:w-2/3'>
               <div className='w-full flex justify-end py-2'>

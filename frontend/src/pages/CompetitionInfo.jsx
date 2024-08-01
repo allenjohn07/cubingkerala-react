@@ -66,14 +66,14 @@ const CompetitionInfo = () => {
                         className="max-w-full flex-grow"
                     />
                 ) : (
-                    <div className='p-8'>
+                    <div className='px-8 py-0 lg:py-8 animate-fadeIn'>
                         <h1 className="text-xl lg:text-3xl font-bold pb-8 text-center text-gray-100">{competitionDetails?.name}</h1>
                         {mapVisible ? (
-                            <div>
+                            <div className='animate-fadeIn'>
                                 <div className='flex justify-end py-2'>
                                     <IoMdClose onClick={() => setMapVisible(!mapVisible)} className='hover:bg-gray-100 rounded-sm cursor-pointer' />
                                 </div>
-                                <MapContainer center={[coordinates.latitude, coordinates.longitude]} zoom={13} scrollWheelZoom={true}>
+                                <MapContainer className='rounded-md' center={[coordinates.latitude, coordinates.longitude]} zoom={13} scrollWheelZoom={true}>
                                     <TileLayer
                                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
