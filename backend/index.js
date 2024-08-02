@@ -24,3 +24,5 @@ mongoose
   .catch((err) => console.log("Database not connected", err));
 
 app.listen(port, () => console.log(`Server started at port: ${port}`));
+
+app.get(port, (req, res) => res.send("Welcome to Cubing Kerala"))
