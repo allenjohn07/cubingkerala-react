@@ -38,7 +38,7 @@ const App = () => {
           <Route path='/competitions/:compId' element={<CompetitionInfo />} />
           <Route path='/persons/:personId' element={<PersonInfo />} />
           <Route path='/admin/requests' element={ user?.userID === userID ? <Requests /> : <Home/>} />
-          <Route path='/profile/:id' element={user ? <MyProfile /> : <Navigate to="/login" />} />
+          <Route path='/profile/:id' element={user ? <MyProfile /> : <Login/>} />
         </Routes>
       </Router>
     </div>
