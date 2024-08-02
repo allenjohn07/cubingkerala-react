@@ -55,7 +55,7 @@ const ResultsTable = ({ result, eventId }) => {
                         result.map((table, i) => (
                             <TableRow key={i} className="custom-table-row text-gray-200">
                                 <TableCell className='cursor-default w-5 bg-success text-black font-semibold border-b-1 border-b-black' >{table.position}</TableCell>
-                                <TableCell className='hover:text-blue-600 cursor-pointer border-b-1 border-b-zinc-800'><Link to={`/persons/${table.personId}`}>{names[table.personId]}</Link></TableCell>
+                                <TableCell className='hover:text-blue-500 cursor-pointer border-b-1 border-b-zinc-800'><Link to={`/persons/${table.personId}`}>{names[table.personId]}</Link></TableCell>
                                 <TableCell className='cursor-default font-semibold border-b-1 border-b-zinc-800'>{table.eventId === "333fm" ? (Math.ceil((convertMillisecondsToTime(table.best)) * 100)) : table.eventId === "333mbf" ? 'n/a' : convertMillisecondsToTime(table.best)}</TableCell>
                                 <TableCell className='cursor-default font-semibold border-b-1 border-b-zinc-800'>{table.eventId === "333mbf" ? 'n/a' :
                                     convertMillisecondsToTime(table.average)}</TableCell>

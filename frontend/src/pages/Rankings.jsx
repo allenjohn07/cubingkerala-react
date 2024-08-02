@@ -147,7 +147,7 @@ const Rankings = () => {
                   {sortedResults?.map((member, index) => (
                     <TableRow key={index}>
                       <TableCell className='bg-green-500 text-black border-b-1 border-b-black w-2 font-semibold'>{index + 1}</TableCell>
-                      <TableCell className='hover:text-blue-600 border-b-1 border-b-zinc-800'><Link to={`/persons/${member.id}`}>{member.id}</Link></TableCell>
+                      <TableCell className='hover:text-blue-500 border-b-1 border-b-zinc-800'><Link to={`/persons/${member.id}`}>{member.id}</Link></TableCell>
                       <TableCell className='border-b-1 border-b-zinc-800'>
                         <div className='flex items-center cursor-default'>
                           <User avatarProps={{ radius: "lg", size: "sm", src: `${returnImageUrl(member.id)}` }} />
