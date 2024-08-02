@@ -11,6 +11,7 @@ import ResultsTable from '../components/ResultsTable';
 import DownFooter from '../components/DownFooter';
 import { Tooltip as EventMarker } from '@nextui-org/react';
 import { Progress } from "@nextui-org/react";
+import '../config/LeafletConfig.js'
 
 const CompetitionInfo = () => {
     const { compId } = useParams();
