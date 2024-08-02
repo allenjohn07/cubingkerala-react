@@ -3,6 +3,7 @@ import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Select
 import { instance } from '../../config/AxiosConfig.jsx';
 import { useSnackbar } from 'notistack';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
+import { Navigate } from "react-router-dom";
 
 
 export default function RequestTable({ requests }) {
@@ -10,6 +11,15 @@ export default function RequestTable({ requests }) {
   const [selection, setSelection] = useState(null)
   const { enqueueSnackbar } = useSnackbar()
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [user, setUser] = useState(JSON.parse(window.localStorage.getItem('user')))
+
+  const userID = import.meta.env.VITE_ADMIN_USER_ID
+
+  useEffect(() => {
+    if(user){
+      user.userID === userID ? null : <Navigate to={"/"}/>
+    }
+  }, [])
 
   const handleSave = async (member) => {
     try {
@@ -18,7 +28,8 @@ export default function RequestTable({ requests }) {
         enqueueSnackbar(response.data.message, { variant: 'success' });
         setTimeout(() => {
           window.location.reload()
-        }, 500);
+        }, 1000);
+        return
       }
       enqueueSnackbar(response.data.message, { variant: 'error' });
     } catch (error) {
@@ -36,7 +47,7 @@ export default function RequestTable({ requests }) {
         enqueueSnackbar(deleteResponse.data.message, { variant: 'success' });
         setTimeout(() => {
           window.location.reload()
-        }, 500);
+        }, 1000);
         return
       }
       enqueueSnackbar(deleteResponse.data.message, { variant: 'error' });

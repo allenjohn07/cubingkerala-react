@@ -9,6 +9,9 @@ import { Progress } from '@nextui-org/react';
 const Members = () => {
   const [members, setMembers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState(JSON.parse(window.localStorage.getItem('user')))
+
+  const userID = import.meta.env.VITE_ADMIN_USER_ID
 
   useEffect(() => {
     const fetchMembers = async () => {
@@ -48,9 +51,11 @@ const Members = () => {
                 <TableComponent4 members={members} />
               </div>
             </div>
-            <div id='joinCubingKerala' className='w-full py-10'>
+            {
+              user?.userID === userID ? null : <div id='joinCubingKerala' className='w-full py-10'>
               <CreateMemberModal />
             </div>
+            }
           </div>
         )}
       </div>

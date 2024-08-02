@@ -16,6 +16,7 @@ const MyProfile = () => {
     const { id } = useParams()
     const [person, setPerson] = useState(null)
     const [member, setMember] = useState(null)
+    const [user, setUser] = useState(JSON.parse(window.localStorage.getItem('user')))
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [form, setForm] = useState({
         wcaid: '',
@@ -32,6 +33,10 @@ const MyProfile = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
+        if(user.wcaid !== id){
+            navigate(`/profile/${user?.wcaid}`)
+            return
+        }
         const fetchPerson = async () => {
             try {
                 const response = await axios.get(`https://raw.githubusercontent.com/robiningelbrecht/wca-rest-api/master/api/persons/${id}.json`)

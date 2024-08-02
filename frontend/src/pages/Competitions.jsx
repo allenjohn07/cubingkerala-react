@@ -46,8 +46,6 @@ const Competitions = () => {
     }
   };
 
-  console.log(upcomingCompetitions);
-  console.log(pastCompetitions);
 
   const handlePCPagination = () => {
     const endIndex = currentPage * compsPerPage;

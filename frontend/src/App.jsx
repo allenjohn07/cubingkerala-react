@@ -1,9 +1,8 @@
-import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
-import { useCookies } from 'react-cookie'
 import Competitions from './pages/Competitions'
 import Members from './pages/Members'
 import Rankings from './pages/Rankings'
@@ -13,7 +12,19 @@ import Requests from './pages/Requests'
 import MyProfile from './pages/MyProfile'
 
 const App = () => {
-  const [cookies, setCookies] = useCookies(["access_token"])
+
+  const userID = import.meta.env.VITE_ADMIN_USER_ID
+  const [user, setUser] = useState(null) 
+
+  useEffect(()=>{
+    const storedUser = window.localStorage.getItem('user')
+    try {
+      setUser(JSON.parse(storedUser))
+    } catch (e) {
+      console.error('Failed to parse user from localStorage', e)
+    }
+  }, [])
+
   return (
     <div>
       <Router>
@@ -26,8 +37,8 @@ const App = () => {
           <Route path='/rankings' element={<Rankings />} />
           <Route path='/competitions/:compId' element={<CompetitionInfo />} />
           <Route path='/persons/:personId' element={<PersonInfo />} />
-          <Route path='/admin/requests' element={<Requests />} />
-          <Route path='/profile/:id' element={<MyProfile />} />
+          <Route path='/admin/requests' element={ user?.userID === userID ? <Requests /> : <Home/>} />
+          <Route path='/profile/:id' element={user ? <MyProfile /> : <Navigate to="/login" />} />
         </Routes>
       </Router>
     </div>
@@ -35,3 +46,4 @@ const App = () => {
 }
 
 export default App
+

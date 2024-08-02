@@ -37,7 +37,7 @@ export default function TableComponent4({ members }) {
 
   const hasSearchFilter = Boolean(filterValue);
 
-  console.log(members);
+  // console.log(members);
 
   const headerColumns = React.useMemo(() => {
     if (visibleColumns === "all") return columns;

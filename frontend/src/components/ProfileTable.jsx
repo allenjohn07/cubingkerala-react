@@ -29,7 +29,7 @@ const ProfileTable = ({ person }) => {
         }
     }, [single, average]);
 
-    console.log(mergedResult);
+    // console.log(mergedResult);
 
     function convertMillisecondsToTime(milliseconds) {
         if (milliseconds < 0) {

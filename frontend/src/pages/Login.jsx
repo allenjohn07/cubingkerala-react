@@ -38,7 +38,7 @@ const Login = () => {
           wcaid: loginResponse.data.wcaid
         }))
         setTimeout(() => {
-          navigate('/');
+          window.location.replace('/');
         }, 2000);
       } else {
         enqueueSnackbar(loginResponse.data.message, { variant: 'error' });
