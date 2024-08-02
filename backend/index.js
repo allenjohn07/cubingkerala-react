@@ -25,4 +25,6 @@ mongoose
 
 app.listen(port, () => console.log(`Server started at port: ${port}`));
 
-app.get(port, (req, res) => res.send("Welcome to Cubing Kerala"))
+app.get("/", (req, res) => {
+  res.send("Welcome to Cubing Kerala")
+})
