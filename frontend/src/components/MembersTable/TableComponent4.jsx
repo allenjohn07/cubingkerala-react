@@ -96,7 +96,7 @@ export default function TableComponent4({ members }) {
       case "name":
         return (
           <User className="cursor-default"
-            avatarProps={{ radius: "lg", src: user.imageUrl }}
+            avatarProps={{ radius: "lg", src:  user.imageUrl }}
             description={user.username}
             name={cellValue}
           >

@@ -137,7 +137,7 @@ const Rankings = () => {
                 <TableHeader>
                   <TableColumn className='bg-black cursor-default'>Rank</TableColumn>
                   <TableColumn className='bg-black cursor-default'>WCA ID</TableColumn>
-                  <TableColumn className='bg-black cursor-default'>Name</TableColumn>
+                  <TableColumn className='bg-black cursor-default min-w-[270px]'>Name</TableColumn>
                   <TableColumn className='bg-black cursor-default'>Result</TableColumn>
                   <TableColumn className='bg-black cursor-default'>NR</TableColumn>
                   <TableColumn className='bg-black cursor-default'>CR</TableColumn>

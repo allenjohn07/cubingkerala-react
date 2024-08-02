@@ -126,6 +126,7 @@ const CreateMemberModal = () => {
                                             variant="underlined"
                                         />
                                         <Input
+                                            description="Right click your online image and select 'Copy image address' to get its URL."
                                             onChange={(e) => setForm({ ...form, imageUrl: e.target.value })}
                                             value={form?.imageUrl}
                                             label="avatar url"
@@ -139,10 +140,10 @@ const CreateMemberModal = () => {
                                     {
                                         user ? <Button onClick={handleSubmit} className="shadow-lg w-full text-success font-semibold bg-black rounded-md" onPress={onClose}>
                                             Submit
-                                        </Button> : 
-                                        <Button onClick={handleRedirectToLogin} className="text-success bg-black font-semibold shadow-lg w-full rounded-md" onPress={onClose}>
-                                            Login
-                                        </Button>
+                                        </Button> :
+                                            <Button onClick={handleRedirectToLogin} className="text-success bg-black font-semibold shadow-lg w-full rounded-md" onPress={onClose}>
+                                                Login
+                                            </Button>
                                     }
                                 </div>
                                 {
