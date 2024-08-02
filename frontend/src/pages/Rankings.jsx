@@ -131,7 +131,7 @@ const Rankings = () => {
                   </Select>
                 </div>
               </div>
-              <Table radius='sm' aria-label="Rankings Table" classNames={{
+              <Table isHeaderSticky radius='sm' aria-label="Rankings Table" classNames={{
                 wrapper: "max-h-[382px] text-gray-200 bg-zinc-900",
               }}>
                 <TableHeader>
