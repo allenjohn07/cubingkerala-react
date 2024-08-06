@@ -24,7 +24,7 @@ const HomeContent = () => {
           </div>
         </div>
         <div className='w-full lg:hidden md:w-1/3 flex items-center lg:justify-start justify-center'>
-          <div className="text-center mb-10">
+          <div className="text-center mb-10 animate-fadeIn">
             <img className='lg:block hidden' src={img} width={300} alt="Cubing Kerala Logo" />
             <img className='lg:hidden block' src={img} width={200} alt="Cubing Kerala Logo" />
           </div>
