@@ -27,21 +27,15 @@ const Requests = () => {
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-black text-gray-100">
-      <LoggedInNav />
+      <LoggedInNav isShow={isLoading ? true : false} />
       <div className='flex-grow'>
         {
-          isLoading ? (<Progress
-            size="sm"
-            color='success'
-            isIndeterminate
-            aria-label="Loading..."
-            className="max-w-full"
-          />) : (
-            <div className="px-8 py-0 lg:py-8 animate-fadeIn flex flex-col items-center">
-              <h1 className="text-xl lg:text-3xl font-bold mb-10 lg:mb-20 text-center">Cubing Kerala Members</h1>
-              <RequestTable requests={requests} />
-            </div>
-          )
+          !isLoading &&
+          <div className="px-8 py-0 lg:py-8 animate-fadeIn flex flex-col items-center">
+            <h1 className="text-xl lg:text-3xl font-bold mb-10 lg:mb-20 text-center">Cubing Kerala Members</h1>
+            <RequestTable requests={requests} />
+          </div>
+
         }
       </div>
       <DownFooter />

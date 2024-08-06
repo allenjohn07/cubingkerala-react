@@ -5,7 +5,7 @@ import DownFooter from '../components/DownFooter';
 import { useCookies } from 'react-cookie';
 import { instance } from '../config/AxiosConfig';
 import { useSnackbar } from 'notistack';
-import { Button } from '@nextui-org/react';
+import { Button, Spinner } from '@nextui-org/react';
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
 
 
@@ -16,6 +16,7 @@ const Login = () => {
     password: ''
   });
   const [_, setCookies] = useCookies(['access_token']);
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -24,11 +25,12 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
+    setIsLoading(true)
     try {
       const wcaid = login.wcaid.toUpperCase();
       const password = login.password;
       const loginResponse = await instance.post('/auth/login', { wcaid, password });
-
+      setIsLoading(false)
       if (loginResponse.data.status === 200) {
         enqueueSnackbar(loginResponse.data.message, { variant: 'success' });
         setCookies('access_token', loginResponse.data.token);
@@ -53,7 +55,7 @@ const Login = () => {
     <div className="flex flex-col justify-between items-center min-h-screen bg-black">
       <Link to={'/'}>
         <span className="absolute flex items-center gap-2 text-white left-5 top-5 lg:left-20 lg:top-10 text-md">
-          <MdOutlineArrowBackIosNew/>
+          <MdOutlineArrowBackIosNew />
           Back
         </span>
       </Link>
@@ -88,10 +90,11 @@ const Login = () => {
           </div>
           <div className='text-center'>
             <Button
+              disabled={isLoading ? true : false}
               onClick={handleLogin}
               className="w-full hover:shadow-md text-base text-success bg-zinc-800 font-semibold rounded-lg"
             >
-              Login
+              {isLoading ? <Spinner color='success' size='sm'/> : "Login"}
             </Button>
           </div>
           <div className="mt-6 text-center">

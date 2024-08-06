@@ -6,6 +6,10 @@ import { instance } from '../config/AxiosConfig.jsx';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Progress } from '@nextui-org/react';
+import Countdown from 'react-countdown';
+import Lottie from 'lottie-react';
+import rocket from '../assets/rocket.json'
+
 
 const Rankings = () => {
   const [event, setEvent] = useState('333');
@@ -40,7 +44,7 @@ const Rankings = () => {
       } finally {
         setTimeout(() => {
           setIsLoading(false)
-      }, 500);
+        }, 500);
       }
     };
 
@@ -88,18 +92,35 @@ const Rankings = () => {
     return members.find(i => i.wcaid === id).imageUrl;
   };
 
+
+  const countdownRenderer = ({ minutes, seconds, completed }) => {
+    if (completed) {
+      return null;
+    } else {
+      return (
+        <span>{minutes}:{seconds}</span>
+      );
+    }
+  };
+
   return (
     <div className="bg-black text-gray-200 flex flex-col justify-between min-h-screen">
-      <div>
-        <LoggedInNav />
+      <div className='flex-grow'>
+        <LoggedInNav isShow={isLoading ? true : false} />
         {isLoading ? (
-            <Progress
+          <div className="flex flex-col justify-center items-center h-full">
+            {/* <Progress
               size="sm"
               color='success'
               isIndeterminate
               aria-label="Loading..."
-              className="max-w-full flex-grow"
-            />
+              className="max-w-full"
+            /> */}
+            <div className='mt-[70px] lg:mt-[100px] flex flex-col items-center animate-fadeSlower'><Lottie className='w-[250px] h-[250px] lg:w-[300px] lg:h-[300px]' animationData={rocket} />
+              <p className='text-xs lg:text-sm text-gray-400 py-2'>The server is starting up. Please wait a moment...</p>
+              <Countdown date={Date.now() + 50000} renderer={countdownRenderer} />
+            </div>
+          </div>
         ) : (
           <div className="px-8 py-0 lg:py-8 flex flex-col items-center animate-fadeIn">
             <h1 className="text-3xl font-bold mb-8 text-center">Rankings</h1>

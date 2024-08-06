@@ -4,7 +4,7 @@ import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import DownFooter from '../components/DownFooter';
 import { instance } from '../config/AxiosConfig';
 import { useSnackbar } from 'notistack';
-import { Button } from '@nextui-org/react';
+import { Button, Spinner } from '@nextui-org/react';
 import { MdOutlineArrowBackIosNew } from 'react-icons/md';
 
 const SignUp = () => {
@@ -16,12 +16,14 @@ const SignUp = () => {
   });
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
+  const [isLoading, setIsLoading] = useState(false)
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
   const handleSignUp = async () => {
+    setIsLoading(true)
     try {
       const name = register.name;
       const wcaid = register.wcaid.toUpperCase();
@@ -30,7 +32,7 @@ const SignUp = () => {
       const registerResponse = await instance.post('/auth/register', {
         name, wcaid, password
       });
-
+      setIsLoading(false)
       if (registerResponse.data.status === 200) {
         enqueueSnackbar(registerResponse.data.message, { variant: 'success' });
         setRegister({
@@ -97,10 +99,11 @@ const SignUp = () => {
           </div>
           <div className="text-center">
             <Button
+              disabled= {isLoading ? true : false}
               onClick={handleSignUp}
               className="w-full hover:shadow-md text-base bg-zinc-800 text-success font-semibold rounded-lg"
             >
-              Sign up
+              {isLoading ? <Spinner color='success' size='sm'/> : "Sign up"}
             </Button>
           </div>
           <div className="mt-6 text-center">

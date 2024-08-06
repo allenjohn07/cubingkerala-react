@@ -49,17 +49,9 @@ const PersonInfo = () => {
     }, [person])
 
     return (
-        <div className="flex flex-col min-h-screen bg-black text-gray-100">
-            <LoggedInNav />
-            {isLoading ? (
-                    <Progress
-                        size="sm"
-                        color='success'
-                        isIndeterminate
-                        aria-label="Loading..."
-                        className="max-w-full flex-grow"
-                    />
-            ) : (
+        <div className="flex flex-col justify-between min-h-screen bg-black text-gray-100">
+            <LoggedInNav isShow={isLoading ? true : false} />
+            {!isLoading &&
                 <div className="flex-grow px-8 py-0 lg:py-8 animate-fadeIn">
                     <div className='flex flex-col items-center justify-center'>
                         <div className="flex items-center flex-col gap-2 pb-7">
@@ -85,7 +77,7 @@ const PersonInfo = () => {
                             <div className='bg-zinc-900 rounded-lg flex py-1 justify-around items-center'>
                                 <div className='text-gray-100 flex flex-col justify-center items-center p-1'>
                                     <span className='text-xs text-gray-400'>COUNTRY</span>
-                                    <img className='h-4 lg:h-5' src={`https://flagsapi.com/${person?.country}/flat/64.png`} alt="country-flag"/>
+                                    <img className='h-4 lg:h-5' src={`https://flagsapi.com/${person?.country}/flat/64.png`} alt="country-flag" />
                                 </div>
                                 <div className='text-gray-100 flex flex-col justify-center items-center p-1'>
                                     <span className='text-xs text-gray-400'>WCA ID</span>
@@ -102,7 +94,7 @@ const PersonInfo = () => {
                         </div>
                     </div>
                 </div>
-            )}
+            }
             <DownFooter />
         </div>
     )

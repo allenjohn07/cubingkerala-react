@@ -56,17 +56,9 @@ const CompetitionInfo = () => {
 
     return (
         <div className="flex flex-col min-h-screen bg-black text-gray-400">
-            <LoggedInNav />
+            <LoggedInNav isShow={isLoading ? true : false} />
             <div className="flex-grow">
-                {isLoading ? (
-                    <Progress
-                        size="sm"
-                        color='success'
-                        isIndeterminate
-                        aria-label="Loading..."
-                        className="max-w-full flex-grow"
-                    />
-                ) : (
+                {!isLoading &&
                     <div className='px-8 py-0 lg:py-8 animate-fadeIn'>
                         <h1 className="text-xl lg:text-3xl font-bold pb-8 text-center text-gray-100">{competitionDetails?.name}</h1>
                         {mapVisible ? (
@@ -120,7 +112,7 @@ const CompetitionInfo = () => {
                             <div className='py-8 lg:py-20 text-start'>
                                 <h1 className="text-2xl lg:text-3xl font-semibold text-success">Results will be available after the competition.</h1>
                                 <Link to={`https://www.worldcubeassociation.org/competitions/${compId}/register`}>
-                                    <span className='hover:underline'>Register for {competitionDetails?.name}</span>
+                                    <span className='underline text-blue-500'>Register for {competitionDetails?.name}</span>
                                 </Link>
                             </div>
                         ) : (
@@ -139,7 +131,7 @@ const CompetitionInfo = () => {
                             </>
                         )}
                     </div>
-                )}
+                }
             </div>
             <DownFooter />
         </div>
