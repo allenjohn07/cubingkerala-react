@@ -2,7 +2,7 @@ import React from 'react';
 import img from '../assets/logo.png';
 import LoggedInNav from '../components/LoggedInNav.jsx';
 import DownFooter from './DownFooter.jsx';
-import Typical from 'react-typical';
+
 
 const HomeContent = () => {
   return (
@@ -11,13 +11,7 @@ const HomeContent = () => {
       <div className="w-full flex flex-col md:flex-row justify-center items-start px-8 py-0 lg:py-8 lg:px-20">
         <div className='w-full px-0 lg:px-20 flex items-center justify-center mb-8 md:mb-0'>
           <div className="text-start lg:text-start mb-10 animate-fadeIn">
-            {/* <h3 className='text-2xl lg:text-3xl font-mono text-success'>Cubing Kerala,</h3> */}
-            <Typical
-              steps={['Cubing Kerala,', 500]}
-              loop={1}
-              wrapper="h3"
-              className='text-2xl lg:text-3xl font-mono text-success'
-            />
+            <h3 className='text-2xl lg:text-3xl font-mono text-success'>Cubing Kerala,</h3>
             <h1 className="text-5xl lg:text-[70px] font-bold mb-6 bg-gradient-to-br py-2 from-white to-stone-400 bg-clip-text text-transparent">
               a community dedicated to Rubik's Cube enthusiasts in Kerala.
             </h1>
